@@ -8,6 +8,7 @@
   <body>
     <script>
       var randomChoice = "";
+
       // generate either rock, paper and scissor randomly
       function getComputerChoice() {
         randomChoice = Math.floor(Math.random() * 3);
@@ -29,17 +30,17 @@
           playerSelection === "rock".toLowerCase() &&
           computerSelection === "scissor".toLowerCase()
         ) {
-          result = "You Win! Rock beats scissor";
+          result = "You win! Rock beats scissor";
         } else if (
           playerSelection === "rock".toLowerCase() &&
           computerSelection === "paper".toLowerCase()
         ) {
-          result = "You Lose! paper beats rock";
+          result = "You lose! paper beats rock";
         } else if (
           playerSelection === "rock".toLowerCase() &&
           computerSelection === "rock".toLowerCase()
         ) {
-          result = "You tie! rock ties with rock";
+          result = "You tied! rock ties with rock";
         } else if (
           playerSelection === "paper".toLowerCase() &&
           computerSelection === "rock".toLowerCase()
@@ -49,7 +50,7 @@
           playerSelection === "paper".toLowerCase() &&
           computerSelection === "paper".toLowerCase()
         ) {
-          result = "You tie! paper ties with paper";
+          result = "You tied! paper ties with paper";
         } else if (
           playerSelection === "paper".toLowerCase() &&
           computerSelection === "scissor".toLowerCase()
@@ -69,32 +70,66 @@
           playerSelection === "scissor".toLowerCase() &&
           computerSelection === "scissor".toLowerCase()
         ) {
-          result = "You tie! scissor ties with scissor";
+          result = "You tied! scissor ties with scissor";
         }
 
         return result;
       }
 
-      const compChoice = getComputerChoice();
-      const playerChoice = "rock";
-      console.log(
-        `Player choice = ${playerChoice} and comp choice = ${compChoice}`
-      );
+      // testing codes
+
+      // console.log(
+      //   `Player choice = ${playerChoice} and comp choice = ${compChoice}`
+      // );
 
       //console.log(singleRound(playerChoice, compChoice));
 
       function game() {
-        var count = 0;
-        console.log(count);
-        while (count < 5) {
-          console.log(singleRound(playerChoice, compChoice));
-          count++;
-        }
-        console.log(count);
-      }
-      game();
+        const playerChoices = [];
+        const computerChoices = [];
+        let playerCount = 0;
+        let compCount = 0;
+        let res = "";
+        let winner = "";
 
-      //
+        for (let i = 1; i < 6; i++) {
+          const compChoice = getComputerChoice();
+          const playerChoice = prompt(
+            `Round ${i}: enter your choice(either paper,rock or scissor)`
+          );
+
+          // keeping track of each choices for player and comp
+          playerChoices.push(playerChoice);
+          computerChoices.push(compChoice);
+
+          res = singleRound(playerChoice, compChoice);
+          // incrementing for player if he wins
+          if (res.startsWith("You win!")) {
+            playerCount++;
+          } else if (res.startsWith("You lose!")) {
+            compCount++;
+          } else {
+            compCount = compCount + 0;
+            playerCount = playerCount + 0;
+          }
+        }
+
+        // deciding winner
+        if (playerCount > compCount) {
+          winner = "Congratulation, you are the winner";
+        } else if (playerCount < compCount) {
+          winner = "You lose. Computer won over you";
+        }
+
+        console.log("Player picks", playerChoices);
+        console.log("Comp picks", computerChoices);
+        console.log(
+          `Player points = ${playerCount} and computer points = ${compCount}`
+        );
+        return winner;
+      }
+
+      console.log(game());
     </script>
   </body>
 </html>
