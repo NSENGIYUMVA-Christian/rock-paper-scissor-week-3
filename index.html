@@ -6,6 +6,16 @@
     <title>rock paper scissor</title>
   </head>
   <body>
+    <header>
+      <h1>ROCK PAPER SCISSOR GAME</h1>
+    </header>
+    <body>
+      <button class="choice rock">Rock</button>
+      <button class="choice paper">Paper</button>
+      <button class="choice scissor">Scissor</button>
+      <div class="result">Result:</div>
+    </body>
+
     <script>
       var randomChoice = "";
 
@@ -21,7 +31,6 @@
         }
         return randomChoice;
       }
-      //getComputerChoice();
 
       //round
       function singleRound(playerSelection, computerSelection) {
@@ -76,60 +85,22 @@
         return result;
       }
 
-      // testing codes
+      /////// getting both comp and player selection
 
-      // console.log(
-      //   `Player choice = ${playerChoice} and comp choice = ${compChoice}`
-      // );
+      const choices = document.querySelectorAll(".choice");
+      const resultElement = document.querySelector(".result");
 
-      //console.log(singleRound(playerChoice, compChoice));
+      let p = "rock";
+      let c = getComputerChoice();
 
-      function game() {
-        const playerChoices = [];
-        const computerChoices = [];
-        let playerCount = 0;
-        let compCount = 0;
-        let res = "";
-        let winner = "";
-
-        for (let i = 1; i < 6; i++) {
-          const compChoice = getComputerChoice();
-          const playerChoice = prompt(
-            `Round ${i}: enter your choice(either paper,rock or scissor)`
-          );
-
-          // keeping track of each choices for player and comp
-          playerChoices.push(playerChoice);
-          computerChoices.push(compChoice);
-
-          res = singleRound(playerChoice, compChoice);
-          // incrementing for player if he wins
-          if (res.startsWith("You win!")) {
-            playerCount++;
-          } else if (res.startsWith("You lose!")) {
-            compCount++;
-          } else {
-            compCount = compCount + 0;
-            playerCount = playerCount + 0;
-          }
-        }
-
-        // deciding winner
-        if (playerCount > compCount) {
-          winner = "Congratulation, you are the winner";
-        } else if (playerCount < compCount) {
-          winner = "You lose. Computer won over you";
-        }
-
-        console.log("Player picks", playerChoices);
-        console.log("Comp picks", computerChoices);
-        console.log(
-          `Player points = ${playerCount} and computer points = ${compCount}`
-        );
-        return winner;
-      }
-
-      console.log(game());
+      let ArrOfChoices = Array.from(choices);
+      ArrOfChoices.map((choice) =>
+        choice.addEventListener("click", function () {
+          let playerChoice = this.textContent;
+          let comp = getComputerChoice();
+          resultElement.innerHTML = `<p>Your choice was ${playerChoice} and computer's choice was ${comp}</p>`;
+        })
+      );
     </script>
   </body>
 </html>
